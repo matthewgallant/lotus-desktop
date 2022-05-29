@@ -10,13 +10,16 @@ export default function Sidebar() {
                     <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Dashboard</NavLink>
                 </li>
                 <li className="Sidebar__Item">
-                    <NavLink to="/search" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Search</NavLink>
-                </li>
-                <li className="Sidebar__Item">
                     <NavLink to="/collection" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Collection</NavLink>
                 </li>
                 <li className="Sidebar__Item">
                     <NavLink to="/decks" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Decks</NavLink>
+                </li>
+                <li className="Sidebar__Item">
+                    <NavLink to="/search" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Search</NavLink>
+                </li>
+                <li className="Sidebar__Item">
+                    <NavLink to="/import" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Import</NavLink>
                 </li>
                 <li className="Sidebar__Item">
                     <NavLink to="/settings" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Settings</NavLink>

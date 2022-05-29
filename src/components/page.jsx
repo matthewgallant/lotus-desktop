@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "./sidebar.jsx";
 
 export default function Page(props) {
-    document.title = `MTG Lotus | ${props.title}`
+    document.title = `Lotus | ${props.title}`
 
     return (
         <div className="Page">
