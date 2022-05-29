@@ -3,9 +3,12 @@
 $primary: #7B1FA2;
 $secondary: #EA80FC;
 
+body {
+    background-color: $dark;
+}
+
 .Page {
     display: flex;
-    background-color: $dark;
     color: $light;
 }
 
@@ -13,10 +16,32 @@ $secondary: #EA80FC;
     display: block;
     height: 100vh;
     width: 250px;
+    flex-shrink: 0;
+}
+
+.Page__Container {
+    display: block;
+    width: 100%;
+}
+
+.Page__Bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 2px solid $gray-700;
+    padding: 10px;
+}
+
+.Page__Title {
+    margin-bottom: 0;
+}
+
+.Page__Search {
+    width: fit-content;
 }
 
 .Page__Content {
-    display: block;
     padding: 10px;
 }
 
