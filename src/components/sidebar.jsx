@@ -7,7 +7,7 @@ export default function Sidebar() {
             <h1>Lotus</h1>
             <ul className="Sidebar__Nav">
                 <li className="Sidebar__Item">
-                    <NavLink to="/main_window" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Dashboard</NavLink>
+                    <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Dashboard</NavLink>
                 </li>
                 <li className="Sidebar__Item">
                     <NavLink to="/search" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Search</NavLink>

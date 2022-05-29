@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import DashboardPage from './pages/dashboard.jsx'
 import SearchPage from './pages/search.jsx'
@@ -12,13 +12,13 @@ import './css/custom.scss'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <BrowserRouter>
+    <HashRouter>
         <Routes>
-            <Route path="/main_window" element={<DashboardPage />} />
+            <Route path="/" element={<DashboardPage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/collection" element={<CollectionPage />} />
             <Route path="/decks" element={<DecksPage />} />
             <Route path="/settings" element={<SettingsPage />} />
         </Routes>
-    </BrowserRouter>
+    </HashRouter>
 );
