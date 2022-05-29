@@ -1,1 +1,56 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
+$primary: #7B1FA2;
+$secondary: #EA80FC;
+
+.Page {
+    display: flex;
+    background-color: $dark;
+    color: $light;
+}
+
+.Page__Sidebar {
+    display: block;
+    height: 100vh;
+    width: 250px;
+}
+
+.Page__Content {
+    display: block;
+    padding: 10px;
+}
+
+.Sidebar {
+    background-color: $primary;
+    height: 100%;
+    padding: 10px;
+    color: $light;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.Sidebar__Nav {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    row-gap: 10px;
+}
+
+.Sidebar__Item {
+    font-size: 1.2rem;
+}
+
+.Sidebar__Item a {
+    color: $light;
+    text-decoration: none;
+}
+
+.Sidebar__Item a:hover,
+.Sidebar__Item a.active {
+    color: $secondary;
+}
