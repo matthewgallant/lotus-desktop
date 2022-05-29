@@ -1,8 +1,8 @@
 {
   "name": "lotus",
-  "productName": "lotus",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "productName": "Lotus",
+  "version": "0.0.1",
+  "description": "A Magic: The Gathering card collection and deck manager",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -14,7 +14,7 @@
   "keywords": [],
   "author": {
     "name": "Matthew Gallant",
-    "email": "mgallant@aptuitiv.com"
+    "email": "matt@matthewgallant.me"
   },
   "license": "MIT",
   "config": {
