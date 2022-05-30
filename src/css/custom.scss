@@ -37,10 +37,6 @@ body {
     margin-bottom: 0;
 }
 
-.Page__Search {
-    width: 300px;
-}
-
 .Page__Content {
     padding: 10px;
 }
@@ -78,4 +74,46 @@ body {
 .Sidebar__Item a:hover,
 .Sidebar__Item a.active {
     color: $secondary;
+}
+
+.Search {
+    width: 300px;
+}
+
+.Search:focus {
+    border: $input-border-width solid $input-border-color;
+}
+
+.Search--Open {
+    border-radius: 0.375rem 0.375rem 0 0;
+}
+
+.Search__Form {
+    position: relative;
+}
+
+.Search__Suggestions {
+    position: absolute;
+    width: 100%;
+    background-color: $light;
+    color: $dark;
+    border-radius: 0 0 0.375em 0.375em;
+}
+
+.Search__Suggestion {
+    display: inline-block;
+    padding: 8px;
+    text-decoration: none;
+    color: $dark;
+    width: 100%;
+}
+
+.Search__Suggestion.Search__Active,
+.Search__Suggestion:hover {
+    background-color: $gray-400;
+    color: $primary;
+}
+
+.Search__Suggestions > div:last-child > .Search__Suggestion {
+    border-radius: 0 0 0.375em 0.375em;
 }
