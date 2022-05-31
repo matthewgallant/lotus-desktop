@@ -1,5 +1,6 @@
 import React from "react"
 import Sidebar from "./sidebar.jsx"
+import Spinner from "./spinner.jsx"
 import SearchField from "./searchField.jsx";
 
 export default function Page(props) {
@@ -16,7 +17,7 @@ export default function Page(props) {
                     <SearchField />
                 </div>
                 <div className="Page__Content">
-                    {props.children}
+                    {props.isLoading ? <Spinner /> : props.children}
                 </div>
             </div>
         </div>

@@ -35,9 +35,9 @@ export default function SearchField() {
 
     const onBlur = (e) => {
         if (!e.currentTarget.contains(e.relatedTarget)) {
-        setScryfallSuggestions([])
-        setActiveSuggestion(-1)
-    }
+            setScryfallSuggestions([])
+            setActiveSuggestion(-1)
+        }
     }
 
     const onSubmit = (e) => {
@@ -89,7 +89,7 @@ export default function SearchField() {
             <div className="Search__Suggestions">
                 {scryfallSuggestions.map((suggestion, index) => 
                     <div key={index}>
-                        <Link to="/" className={"Search__Suggestion " + (index == activeSuggestion && "Search__Active")}>
+                        <Link to={`/card/${suggestion}`} className={"Search__Suggestion " + (index == activeSuggestion && "Search__Active")}>
                             {suggestion}
                         </Link>
                     </div>

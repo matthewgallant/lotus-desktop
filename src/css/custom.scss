@@ -20,7 +20,8 @@ body {
 }
 
 .Page__Container {
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
@@ -39,6 +40,7 @@ body {
 
 .Page__Content {
     padding: 10px;
+    height: 100%;
 }
 
 .Sidebar {
@@ -74,6 +76,10 @@ body {
 .Sidebar__Item a:hover,
 .Sidebar__Item a.active {
     color: $secondary;
+}
+
+.Sidebar__Item a:focus {
+    outline: none;
 }
 
 .Search {
@@ -116,4 +122,31 @@ body {
 
 .Search__Suggestions > div:last-child > .Search__Suggestion {
     border-radius: 0 0 0.375em 0.375em;
+}
+
+.Spinner {
+    border: 4px solid $secondary;
+    border-top: 4px solid $primary;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+.Spinner__container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
