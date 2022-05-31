@@ -1,7 +1,15 @@
-@import "../../node_modules/bootstrap/scss/bootstrap";
-
 $primary: #7B1FA2;
 $secondary: #EA80FC;
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 900px,
+    xl: 900px,
+    xxl: 900px
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
 
 body {
     background-color: $dark;
@@ -149,4 +157,47 @@ body {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.Card > div {
+    margin-bottom: 10px;
+}
+
+.Card__Name {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.Card__Flavor {
+    font-style: italic;
+}
+
+.Card__Legalities {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 5px;
+}
+
+.Card__Legalities > div {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    column-gap: 5px;
+}
+
+.Card__Legality {
+    border-radius: 5px;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.Card__Legality--Legal {
+    background-color: $green;
+}
+
+.Card__Legality--Illegal {
+    background-color: $gray-600;
+}
+
+.Card__Price {
+    font-size: 1.75rem;
 }
