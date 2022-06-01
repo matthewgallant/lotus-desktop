@@ -36,6 +36,8 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
+    overflow: auto;
+    max-height: 100vh;
 }
 
 .Page__Bar {
@@ -45,6 +47,9 @@ body {
     width: 100%;
     border-bottom: 2px solid $gray-700;
     padding: 10px;
+    position: sticky;
+    top: 0;
+    background-color: $dark;
 }
 
 .Page__Title {
@@ -52,8 +57,11 @@ body {
 }
 
 .Page__Content {
-    padding: 10px;
     height: 100%;
+}
+
+.Page__Content--Padded {
+    padding: 10px;
 }
 
 .Sidebar {

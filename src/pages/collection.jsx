@@ -64,7 +64,7 @@ export default function CollectionPage() {
     })
 
     return (
-        <Page title="Collection" isLoading={isLoading}>
+        <Page title="Collection" isLoading={isLoading} noPadding>
             <table className="table table-dark table-striped table-hover table-borderless">
                 <thead>
                     <tr>

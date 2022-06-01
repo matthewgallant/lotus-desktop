@@ -16,7 +16,7 @@ export default function Page(props) {
                     <h2 className="Page__Title">{props.title}</h2>
                     <SearchField />
                 </div>
-                <div className="Page__Content">
+                <div className={"Page__Content " + (!props.noPadding && "Page__Content--Padded")}>
                     {props.isLoading ? <Spinner /> : props.children}
                 </div>
             </div>
