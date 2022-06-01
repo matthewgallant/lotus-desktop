@@ -6,6 +6,7 @@ import Page from "../components/page.jsx"
 export default function CollectionPage() {
     const [isLoading, setIsLoading] = useState(true)
     const [collection, setCollection] = useState([])
+    const [allChecked, setAllChecked] = useState(false)
 
     const onAllCheckboxChange = () => {
 
@@ -13,8 +14,12 @@ export default function CollectionPage() {
         let tempCollection = [...collection]
 
         // Toggle checkbox
-        tempCollection.map(card => card.isChecked = !card.isChecked)
+        tempCollection.map(card => card.isChecked = !allChecked)
 
+        // Update select all checkbox state
+        setAllChecked(!allChecked)
+
+        // Update collection state
         setCollection(tempCollection)
     }
 
@@ -28,7 +33,11 @@ export default function CollectionPage() {
 
         // Toggle checkbox
         tempCollection[index].isChecked = !tempCollection[index].isChecked
+
+        // Since a single box has changed we should not indicate all are checked
+        setAllChecked(false)
         
+        // Update collection state
         setCollection(tempCollection)
     }
 
@@ -36,16 +45,17 @@ export default function CollectionPage() {
         if (isLoading) {
 
             // Get collection and set state if it exists
-            let localCollection = localStorage.getItem('collection')
-            if (localCollection) {
+            let tempCollection = localStorage.getItem('collection')
+            if (tempCollection) {
 
                 // Convert JSON string to actual JSON
-                localCollection = JSON.parse(localCollection)
+                tempCollection = JSON.parse(tempCollection)
 
                 // Uncheck all checkboxes
-                localCollection.map(card => card.isChecked = false)
+                tempCollection.map(card => card.isChecked = false)
 
-                setCollection(localCollection)
+                // Update collection state
+                setCollection(tempCollection)
             }
 
             // Stop loading and render page
@@ -59,7 +69,7 @@ export default function CollectionPage() {
                 <thead>
                     <tr>
                         <th style={{ width: '30px' }}>
-                            <input className="form-check-input" type="checkbox" onChange={onAllCheckboxChange} />
+                            <input className="form-check-input" type="checkbox" checked={allChecked} onChange={onAllCheckboxChange} />
                         </th>
                         <th>Card</th>
                         <th>Mana Cost</th>
