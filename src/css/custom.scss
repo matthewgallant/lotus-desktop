@@ -9,8 +9,6 @@ $container-max-widths: (
     xxl: 900px
 );
 
-$table-striped-order: even;
-
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 .btn-secondary {
