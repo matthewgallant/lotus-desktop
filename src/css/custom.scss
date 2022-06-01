@@ -9,7 +9,14 @@ $container-max-widths: (
     xxl: 900px
 );
 
+$table-striped-order: even;
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
+.btn-secondary {
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-hover-color: var(--bs-white);
+}
 
 body {
     background-color: $dark;

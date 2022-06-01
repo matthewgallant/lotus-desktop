@@ -48,7 +48,7 @@ export default function CardPage() {
             <div className="container">
                 <div className="row">
                     <div className="col-4">
-                        <img src={cardDetails.image_uris.large} alt={cardDetails.name} className="img-fluid" />
+                        <img src={cardDetails.image_uris.large} alt={cardDetails.name} className="img-fluid rounded-4" />
                     </div>
                     <div className="col-8">
                         <div className="Card">
@@ -84,11 +84,9 @@ export default function CardPage() {
                                 </div>
                             </div>
                             <div className="Card__Price">{cardDetails.prices.usd ? `$${cardDetails.prices.usd}` : `$${cardDetails.prices.usd_foil} (foil)`}</div>
-                            <div className="Card__Purchase">
-                                <a href={cardDetails.purchase_uris.tcgplayer} target="_blank" className="btn btn-primary">Buy on TCGplayer</a>
-                            </div>
-                            <div className="Card__Add">
+                            <div className="d-flex justify-content-between">
                                 <button className="btn btn-secondary" onClick={onClick}>Add to Collection</button>
+                                <a href={cardDetails.purchase_uris.tcgplayer} target="_blank" className="btn btn-primary">Buy on TCGplayer</a>
                             </div>
                         </div>
                     </div>
