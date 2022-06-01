@@ -16,6 +16,20 @@ export default function CardPage() {
         purchase_uris: {}
     })
 
+    const onClick = () => {
+        let collection;
+
+        if (localStorage.getItem('collection')) {
+            collection = JSON.parse(localStorage.getItem('collection'))
+        } else {
+            collection = []
+        }
+        
+        collection.push(cardDetails)
+
+        localStorage.setItem('collection', JSON.stringify(collection))
+    }
+
     useEffect(() => {
         if (isLoading) {
             axios.get('https://api.scryfall.com/cards/named', { params: { exact: name }}).then(res => {
@@ -33,10 +47,10 @@ export default function CardPage() {
         <Page title={name} isLoading={isLoading}>
             <div className="container">
                 <div className="row">
-                    <div className="col">
+                    <div className="col-4">
                         <img src={cardDetails.image_uris.large} alt={cardDetails.name} className="img-fluid" />
                     </div>
-                    <div className="col">
+                    <div className="col-8">
                         <div className="Card">
                             <div className="Card__Name">{cardDetails.name}</div>
                             <div className="Card__Cost">{cardDetails.mana_cost}</div>
@@ -74,7 +88,7 @@ export default function CardPage() {
                                 <a href={cardDetails.purchase_uris.tcgplayer} target="_blank" className="btn btn-primary">Buy on TCGplayer</a>
                             </div>
                             <div className="Card__Add">
-                                <button className="btn btn-secondary">Add to Collection</button>
+                                <button className="btn btn-secondary" onClick={onClick}>Add to Collection</button>
                             </div>
                         </div>
                     </div>
