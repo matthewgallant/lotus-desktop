@@ -9,6 +9,7 @@ export default function CardPage() {
     let { name } = useParams()
 
     const [isLoading, setIsLoading] = useState(true)
+    const [cardName, setCardName] = useState('')
     const [cardDetails, setCardDetails] = useState({
         image_uris: {},
         legalities: {},
@@ -31,11 +32,18 @@ export default function CardPage() {
     }
 
     useEffect(() => {
+
+        // Check to see if the card name has changed
+        if (name != cardName) {
+            setIsLoading(true)
+            setCardName(name)
+        }
+
+        // Grab card details if in loading mode
         if (isLoading) {
             axios.get('https://api.scryfall.com/cards/named', { params: { exact: name }}).then(res => {
                 setIsLoading(false)
                 setCardDetails(res.data)
-                console.log(res.data)
             }).catch(function () {
                 setIsLoading(false)
                 console.log("Could not contact Scryfall's API!")
