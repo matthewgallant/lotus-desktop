@@ -7,6 +7,7 @@ export default function CollectionPage() {
     const [isLoading, setIsLoading] = useState(true)
     const [collection, setCollection] = useState([])
     const [allChecked, setAllChecked] = useState(false)
+    const [showToolbar, setShowToolbar] = useState(false)
 
     const onAllCheckboxChange = () => {
 
@@ -18,6 +19,9 @@ export default function CollectionPage() {
 
         // Update select all checkbox state
         setAllChecked(!allChecked)
+
+        // Show/hide toolbar
+        setShowToolbar(!allChecked)
 
         // Update collection state
         setCollection(tempCollection)
@@ -34,9 +38,52 @@ export default function CollectionPage() {
         // Toggle checkbox
         tempCollection[index].isChecked = !tempCollection[index].isChecked
 
+        // Check if any checkboxes are checked
+        let noneChecked = tempCollection.every((card) => {
+            return !card.isChecked
+        })
+
+        // Show/hide toolbar
+        if (noneChecked) {
+            setShowToolbar(false)
+        } else {
+            setShowToolbar(true)
+        }
+
         // Since a single box has changed we should not indicate all are checked
         setAllChecked(false)
         
+        // Update collection state
+        setCollection(tempCollection)
+    }
+
+    const deleteCards = () => {
+
+        // Create temp array
+        let tempCollection = [...collection]
+
+        // Filter out all checked cards
+        tempCollection = tempCollection.filter(card => !card.isChecked)
+
+        // Delete from local storage
+        localStorage.setItem('collection', JSON.stringify(tempCollection))
+
+        // Check if any checkboxes are checked
+        let noneChecked = tempCollection.every((card) => {
+            return !card.isChecked
+        })
+
+        // Show/hide toolbar
+        if (noneChecked) {
+            setShowToolbar(false)
+        } else {
+            setShowToolbar(true)
+        }
+
+        if (tempCollection.length === 0) {
+            setAllChecked(false)
+        }
+
         // Update collection state
         setCollection(tempCollection)
     }
@@ -65,6 +112,9 @@ export default function CollectionPage() {
 
     return (
         <Page title="Collection" isLoading={isLoading} noPadding>
+            <div className="Table__Toolbar p-1 bg-warning" style={{ display: showToolbar ? 'block' : 'none' }}>
+                <button className="text-danger bg-transparent border-0" onClick={deleteCards}><i className="bi-trash"></i> Delete</button>
+            </div>
             <table className="table table-dark table-striped table-hover table-borderless">
                 <thead>
                     <tr>
@@ -83,7 +133,7 @@ export default function CollectionPage() {
                                 <input className="form-check-input" type="checkbox" data-index={index} checked={card.isChecked} onChange={onSingleCheckboxChange} />
                             </th>
                             <th>
-                                <Link to={`/card/${card.name}`} className="text-reset text-decoration-none fw-normal">{card.name}</Link>
+                                <Link to={`/card/${card.name}`} className="link-secondary text-decoration-none fw-normal">{card.name}</Link>
                             </th>
                             <td>{card.mana_cost}</td>
                             <td>${card.prices.usd}</td>

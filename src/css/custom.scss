@@ -10,6 +10,7 @@ $container-max-widths: (
 );
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 
 .btn-secondary {
     --bs-btn-color: var(--bs-white);
@@ -213,4 +214,9 @@ body {
 
 .Card__Price {
     font-size: 1.75rem;
+}
+
+.Table__Toolbar {
+    position: sticky;
+    top: 60px;
 }
