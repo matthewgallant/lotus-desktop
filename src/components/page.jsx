@@ -8,6 +8,7 @@ import SearchField from "./searchField.jsx";
 
 export default function Page(props) {
     const navigate = useNavigate()
+    const { buttons = [] } = props
 
     document.title = `Lotus | ${props.title}`
 
@@ -25,8 +26,14 @@ export default function Page(props) {
                         <button onClick={() => navigate(1)} className="bg-transparent border-0 text-light fs-4 d-flex align-items-center">
                             <ChevronRight />
                         </button>
+                        <h2 className="mb-0 ms-3">{props.title}</h2>
                     </div>
-                    <div>
+                    <div className="d-flex">
+                        {buttons.map((button, index) => 
+                            <div className="me-2" key={index}>
+                                {button}
+                            </div>
+                        )}
                         <SearchField />
                     </div>
                 </div>

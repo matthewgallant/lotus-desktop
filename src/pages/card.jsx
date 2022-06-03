@@ -52,7 +52,7 @@ export default function CardPage() {
     })
 
     return (
-        <Page title={name} isLoading={isLoading}>
+        <Page title="Card" isLoading={isLoading}>
             <div className="container">
                 <div className="row">
                     <div className="col-4">
