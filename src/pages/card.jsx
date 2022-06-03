@@ -1,6 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
+import { Button, ButtonGroup } from "react-bootstrap"
 import axios from "axios"
 
 import Page from "../components/page.jsx"
@@ -18,17 +19,17 @@ export default function CardPage() {
     })
 
     const onClick = () => {
-        let collection;
+        let cards;
 
-        if (localStorage.getItem('collection')) {
-            collection = JSON.parse(localStorage.getItem('collection'))
+        if (localStorage.getItem('cards')) {
+            cards = JSON.parse(localStorage.getItem('cards'))
         } else {
-            collection = []
+            cards = []
         }
         
-        collection.push(cardDetails)
+        cards.push(cardDetails)
 
-        localStorage.setItem('collection', JSON.stringify(collection))
+        localStorage.setItem('cards', JSON.stringify(cards))
     }
 
     useEffect(() => {
@@ -60,42 +61,42 @@ export default function CardPage() {
                     </div>
                     <div className="col-8">
                         <div className="Card">
-                            <div className="Card__Name">{cardDetails.name}</div>
-                            <div className="Card__Cost">{cardDetails.mana_cost}</div>
-                            <div className="Card__Type">{cardDetails.type_line}</div>
-                            <div className="Card__Oracle">{cardDetails.oracle_text}</div>
-                            <div className="Card__Flavor">{cardDetails.flavor_text}</div>
-                            <div className="Card__Legalities">
+                            <div className="h2">{cardDetails.name}</div>
+                            <div className="mb-2">{cardDetails.mana_cost}</div>
+                            <div className="mb-2">{cardDetails.type_line}</div>
+                            <div className="mb-2">{cardDetails.oracle_text}</div>
+                            <div className="mb-2"><em>{cardDetails.flavor_text}</em></div>
+                            <div className="h5 mb-3">Average Price: {cardDetails.prices.usd ? `$${cardDetails.prices.usd}` : `$${cardDetails.prices.usd_foil} (foil)`}</div>
+                            <div className="Card__Legalities mb-3">
                                 <div>
                                     <div className={"Card__Legality " + (cardDetails.legalities.commander == 'legal' ? 'Card__Legality--Legal' : 'Card__Legality--Illegal')}>{cardDetails.legalities.commander == 'legal' ? 'Legal' : 'Not Legal'}</div>
-                                    <div className="Card__Format">Commander</div>
+                                    <div>Commander</div>
                                 </div>
                                 <div>
                                     <div className={"Card__Legality " + (cardDetails.legalities.standard == 'legal' ? 'Card__Legality--Legal' : 'Card__Legality--Illegal')}>{cardDetails.legalities.standard == 'legal' ? 'Legal' : 'Not Legal'}</div>
-                                    <div className="Card__Format">Standard</div>
+                                    <div>Standard</div>
                                 </div>
                                 <div>
                                     <div className={"Card__Legality " + (cardDetails.legalities.brawl == 'legal' ? 'Card__Legality--Legal' : 'Card__Legality--Illegal')}>{cardDetails.legalities.brawl == 'legal' ? 'Legal' : 'Not Legal'}</div>
-                                    <div className="Card__Format">Brawl</div>
+                                    <div>Brawl</div>
                                 </div>
                                 <div>
                                     <div className={"Card__Legality " + (cardDetails.legalities.pauper == 'legal' ? 'Card__Legality--Legal' : 'Card__Legality--Illegal')}>{cardDetails.legalities.pauper == 'legal' ? 'Legal' : 'Not Legal'}</div>
-                                    <div className="Card__Format">Pauper</div>
+                                    <div>Pauper</div>
                                 </div>
                                 <div>
                                     <div className={"Card__Legality " + (cardDetails.legalities.modern == 'legal' ? 'Card__Legality--Legal' : 'Card__Legality--Illegal')}>{cardDetails.legalities.modern == 'legal' ? 'Legal' : 'Not Legal'}</div>
-                                    <div className="Card__Format">Modern</div>
+                                    <div>Modern</div>
                                 </div>
                                 <div>
                                     <div className={"Card__Legality " + (cardDetails.legalities.legacy == 'legal' ? 'Card__Legality--Legal' : 'Card__Legality--Illegal')}>{cardDetails.legalities.legacy == 'legal' ? 'Legal' : 'Not Legal'}</div>
-                                    <div className="Card__Format">Legacy</div>
+                                    <div>Legacy</div>
                                 </div>
                             </div>
-                            <div className="Card__Price">{cardDetails.prices.usd ? `$${cardDetails.prices.usd}` : `$${cardDetails.prices.usd_foil} (foil)`}</div>
-                            <div className="d-flex justify-content-between">
-                                <button className="btn btn-secondary" onClick={onClick}>Add to Collection</button>
-                                <a href={cardDetails.purchase_uris.tcgplayer} target="_blank" className="btn btn-primary">Buy on TCGplayer</a>
-                            </div>
+                            <ButtonGroup>
+                                <Button onClick={onClick}>Add to Collection</Button>
+                                <Button href={cardDetails.purchase_uris.tcgplayer} target="_blank" variant="secondary">Buy on TCGplayer</Button>
+                            </ButtonGroup>
                         </div>
                     </div>
                 </div>

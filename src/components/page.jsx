@@ -1,9 +1,9 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
+import { Spinner } from "react-bootstrap"
 import { ChevronLeft, ChevronRight } from "react-bootstrap-icons"
 
 import Sidebar from "./sidebar.jsx"
-import Spinner from "./spinner.jsx"
 import SearchField from "./searchField.jsx";
 
 export default function Page(props) {
@@ -38,7 +38,7 @@ export default function Page(props) {
                     </div>
                 </div>
                 <div className={"Page__Content " + (!props.noPadding && "Page__Content--Padded")}>
-                    {props.isLoading ? <Spinner /> : props.children}
+                    {props.isLoading ? <div className="d-flex align-items-center justify-content-center h-100"><Spinner animation="border" variant="primary"></Spinner></div> : props.children}
                 </div>
             </div>
         </div>

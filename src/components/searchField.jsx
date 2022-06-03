@@ -1,6 +1,7 @@
 import React from "react"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { Form } from "react-bootstrap"
 import axios from "axios"
 
 export default function SearchField() {
@@ -76,25 +77,30 @@ export default function SearchField() {
     }
 
     return (
-        <form autoComplete="off" onSubmit={onSubmit} onBlur={onBlur} className="Search__Form">
-            <input
-                type="text"
-                name="search"
-                id="search"
-                className={"Search form-control" + (scryfallSuggestions.length > 0 ? " Search--Open" : '')}
-                placeholder="Search for any card"
-                spellCheck="false"
-                onChange={onChange}
-                onKeyDown={onKeyDown} />
-            <div className="Search__Suggestions">
-                {scryfallSuggestions.map((suggestion, index) => 
-                    <div key={index}>
-                        <Link to={`/cards/${suggestion}`} className={"Search__Suggestion " + (index == activeSuggestion && "Search__Active")}>
-                            {suggestion}
-                        </Link>
+        <div>
+            <Form autoComplete="off" onSubmit={onSubmit} className="position-relative">
+                <Form.Group>
+                    <Form.Control
+                        type="text"
+                        placeholder="Search for any card"
+                        spellCheck="false"
+                        style={{ width: 300 }}
+                        onChange={onChange}
+                        onKeyDown={onKeyDown}
+                        className={scryfallSuggestions.length > 0 && 'rounded-0 rounded-top'} />
+                </Form.Group>
+                <Form.Group>
+                    <div className="Search__Suggestions">
+                        {scryfallSuggestions.map((suggestion, index) => 
+                            <div key={index}>
+                                <Link to={`/cards/${suggestion}`} className={"Search__Suggestion " + (index == activeSuggestion && "Search__Active")}>
+                                    {suggestion}
+                                </Link>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
-        </form>
+                </Form.Group>
+            </Form>
+        </div>
     );
 }

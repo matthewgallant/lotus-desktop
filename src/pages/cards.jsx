@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { Table } from "react-bootstrap"
 import { Trash } from "react-bootstrap-icons"
 
 import Page from "../components/page.jsx"
@@ -119,7 +120,7 @@ export default function CardsPage() {
                     <Trash className="me-1" /> Delete
                 </button>
             </div>
-            <table className="table table-dark table-striped table-hover table-borderless">
+            <Table variant="dark" striped hover borderless>
                 <thead>
                     <tr>
                         <th style={{ width: '30px' }}>
@@ -144,7 +145,7 @@ export default function CardsPage() {
                         </tr>
                     )}
                 </tbody>
-            </table>
+            </Table>
         </Page>
     );
 }
