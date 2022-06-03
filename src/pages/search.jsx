@@ -3,7 +3,7 @@ import Page from "../components/page.jsx"
 
 export default function SearchPage() {
     return (
-        <Page title="Search">
+        <Page title="Advanced Search">
             Search Page
         </Page>
     );

@@ -7,7 +7,7 @@ export default function DeckPage() {
     let { name } = useParams()
 
     return (
-        <Page title={name}>
+        <Page title={`${name} Deck`}>
             Deck Page
         </Page>
     );

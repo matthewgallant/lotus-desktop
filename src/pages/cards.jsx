@@ -114,7 +114,7 @@ export default function CardsPage() {
     })
 
     return (
-        <Page title="Cards" isLoading={isLoading} noPadding>
+        <Page title="My Cards" isLoading={isLoading} noPadding>
             <div className="Table__Toolbar p-1 bg-warning" style={{ display: showToolbar ? 'block' : 'none' }}>
                 <button className="text-danger bg-transparent border-0 d-flex align-items-center" onClick={deleteCards}>
                     <Trash className="me-1" /> Delete
