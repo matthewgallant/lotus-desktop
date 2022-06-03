@@ -5,19 +5,19 @@ import { Trash } from "react-bootstrap-icons"
 
 import Page from "../components/page.jsx"
 
-export default function CollectionPage() {
+export default function CardsPage() {
     const [isLoading, setIsLoading] = useState(true)
-    const [collection, setCollection] = useState([])
+    const [cards, setCards] = useState([])
     const [allChecked, setAllChecked] = useState(false)
     const [showToolbar, setShowToolbar] = useState(false)
 
     const onAllCheckboxChange = () => {
 
         // Create temp array
-        let tempCollection = [...collection]
+        let tempCards = [...cards]
 
         // Toggle checkbox
-        tempCollection.map(card => card.isChecked = !allChecked)
+        tempCards.map(card => card.isChecked = !allChecked)
 
         // Update select all checkbox state
         setAllChecked(!allChecked)
@@ -25,23 +25,23 @@ export default function CollectionPage() {
         // Show/hide toolbar
         setShowToolbar(!allChecked)
 
-        // Update collection state
-        setCollection(tempCollection)
+        // Update cards state
+        setCards(tempCards)
     }
 
     const onSingleCheckboxChange = (e) => {
 
         // Create temp array
-        let tempCollection = [...collection]
+        let tempCards = [...cards]
 
-        // Get collection index
+        // Get cards index
         const index = e.target.dataset.index
 
         // Toggle checkbox
-        tempCollection[index].isChecked = !tempCollection[index].isChecked
+        tempCards[index].isChecked = !tempCards[index].isChecked
 
         // Check if any checkboxes are checked
-        let noneChecked = tempCollection.every((card) => {
+        let noneChecked = tempCards.every((card) => {
             return !card.isChecked
         })
 
@@ -55,23 +55,23 @@ export default function CollectionPage() {
         // Since a single box has changed we should not indicate all are checked
         setAllChecked(false)
         
-        // Update collection state
-        setCollection(tempCollection)
+        // Update cards state
+        setCards(tempCards)
     }
 
     const deleteCards = () => {
 
         // Create temp array
-        let tempCollection = [...collection]
+        let tempCards = [...cards]
 
         // Filter out all checked cards
-        tempCollection = tempCollection.filter(card => !card.isChecked)
+        tempCards = tempCards.filter(card => !card.isChecked)
 
         // Delete from local storage
-        localStorage.setItem('collection', JSON.stringify(tempCollection))
+        localStorage.setItem('cards', JSON.stringify(tempCards))
 
         // Check if any checkboxes are checked
-        let noneChecked = tempCollection.every((card) => {
+        let noneChecked = tempCards.every((card) => {
             return !card.isChecked
         })
 
@@ -82,29 +82,29 @@ export default function CollectionPage() {
             setShowToolbar(true)
         }
 
-        if (tempCollection.length === 0) {
+        if (tempCards.length === 0) {
             setAllChecked(false)
         }
 
-        // Update collection state
-        setCollection(tempCollection)
+        // Update cards state
+        setCards(tempCards)
     }
 
     useEffect(() => {
         if (isLoading) {
 
-            // Get collection and set state if it exists
-            let tempCollection = localStorage.getItem('collection')
-            if (tempCollection) {
+            // Get cards and set state if it exists
+            let tempCards = localStorage.getItem('cards')
+            if (tempCards) {
 
                 // Convert JSON string to actual JSON
-                tempCollection = JSON.parse(tempCollection)
+                tempCards = JSON.parse(tempCards)
 
                 // Uncheck all checkboxes
-                tempCollection.map(card => card.isChecked = false)
+                tempCards.map(card => card.isChecked = false)
 
-                // Update collection state
-                setCollection(tempCollection)
+                // Update cards state
+                setCards(tempCards)
             }
 
             // Stop loading and render page
@@ -113,7 +113,7 @@ export default function CollectionPage() {
     })
 
     return (
-        <Page title="Collection" isLoading={isLoading} noPadding>
+        <Page title="Cards" isLoading={isLoading} noPadding>
             <div className="Table__Toolbar p-1 bg-warning" style={{ display: showToolbar ? 'block' : 'none' }}>
                 <button className="text-danger bg-transparent border-0 d-flex align-items-center" onClick={deleteCards}>
                     <Trash className="me-1" /> Delete
@@ -131,13 +131,13 @@ export default function CollectionPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {collection.map((card, index) =>
+                    {cards.map((card, index) =>
                         <tr key={index}>
                             <th style={{ width: '30px' }}>
                                 <input className="form-check-input" type="checkbox" data-index={index} checked={card.isChecked} onChange={onSingleCheckboxChange} />
                             </th>
                             <th>
-                                <Link to={`/card/${card.name}`} className="link-secondary text-decoration-none fw-normal">{card.name}</Link>
+                                <Link to={`/cards/${card.name}`} className="link-secondary text-decoration-none fw-normal">{card.name}</Link>
                             </th>
                             <td>{card.mana_cost}</td>
                             <td>${card.prices.usd}</td>

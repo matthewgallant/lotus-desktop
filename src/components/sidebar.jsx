@@ -10,7 +10,7 @@ export default function Sidebar() {
                     <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Dashboard</NavLink>
                 </li>
                 <li className="Sidebar__Item">
-                    <NavLink to="/collection" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Collection</NavLink>
+                    <NavLink to="/cards" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Cards</NavLink>
                 </li>
                 <li className="Sidebar__Item">
                     <NavLink to="/decks" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Decks</NavLink>

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client"
 import { HashRouter, Routes, Route } from "react-router-dom"
 
 import DashboardPage from './pages/dashboard.jsx'
-import CollectionPage from './pages/collection.jsx'
+import CardsPage from './pages/cards.jsx'
 import DecksPage from './pages/decks.jsx'
 import DeckPage from './pages/deck.jsx'
 import SearchPage from './pages/search.jsx'
@@ -18,13 +18,13 @@ root.render(
     <HashRouter>
         <Routes>
             <Route path="/" exact element={<DashboardPage />} />
-            <Route path="/collection" exact element={<CollectionPage />} />
+            <Route path="/cards" exact element={<CardsPage />} />
+            <Route path="/cards/:name" exact element={<CardPage />} />
             <Route path="/decks" exact element={<DecksPage />} />
             <Route path="/decks/:name" exact element={<DeckPage />} />
             <Route path="/search" exact element={<SearchPage />} />
             <Route path="/import" exact element={<ImportPage />} />
             <Route path="/settings" exact element={<SettingsPage />} />
-            <Route path="/card/:name" exact element={<CardPage />} />
         </Routes>
     </HashRouter>
 );

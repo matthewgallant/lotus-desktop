@@ -46,7 +46,7 @@ export default function SearchField() {
         if (activeSuggestion >= 0) {
             setScryfallSuggestions([])
             setActiveSuggestion(-1)
-            navigate(`/card/${scryfallSuggestions[activeSuggestion]}`)
+            navigate(`/cards/${scryfallSuggestions[activeSuggestion]}`)
         }
     }
 
@@ -89,7 +89,7 @@ export default function SearchField() {
             <div className="Search__Suggestions">
                 {scryfallSuggestions.map((suggestion, index) => 
                     <div key={index}>
-                        <Link to={`/card/${suggestion}`} className={"Search__Suggestion " + (index == activeSuggestion && "Search__Active")}>
+                        <Link to={`/cards/${suggestion}`} className={"Search__Suggestion " + (index == activeSuggestion && "Search__Active")}>
                             {suggestion}
                         </Link>
                     </div>
