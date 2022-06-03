@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { Trash } from "react-bootstrap-icons"
+
 import Page from "../components/page.jsx"
 
 export default function CollectionPage() {
@@ -113,7 +115,9 @@ export default function CollectionPage() {
     return (
         <Page title="Collection" isLoading={isLoading} noPadding>
             <div className="Table__Toolbar p-1 bg-warning" style={{ display: showToolbar ? 'block' : 'none' }}>
-                <button className="text-danger bg-transparent border-0" onClick={deleteCards}><i className="bi-trash"></i> Delete</button>
+                <button className="text-danger bg-transparent border-0 d-flex align-items-center" onClick={deleteCards}>
+                    <Trash className="me-1" /> Delete
+                </button>
             </div>
             <table className="table table-dark table-striped table-hover table-borderless">
                 <thead>

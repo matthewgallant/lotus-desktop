@@ -1,5 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
+import { ChevronLeft, ChevronRight } from "react-bootstrap-icons"
 
 import Sidebar from "./sidebar.jsx"
 import Spinner from "./spinner.jsx"
@@ -17,12 +18,12 @@ export default function Page(props) {
             </div>
             <div className="Page__Container">
                 <div className="Page__Bar">
-                    <div>
-                        <button onClick={() => navigate(-1)} className="bg-transparent border-0 text-light fs-4">
-                            <i className="bi bi-chevron-left"></i>
+                    <div className="d-flex">
+                        <button onClick={() => navigate(-1)} className="bg-transparent border-0 text-light fs-4 d-flex align-items-center">
+                            <ChevronLeft />
                         </button>
-                        <button onClick={() => navigate(1)} className="bg-transparent border-0 text-light fs-4">
-                            <i className="bi bi-chevron-right"></i>
+                        <button onClick={() => navigate(1)} className="bg-transparent border-0 text-light fs-4 d-flex align-items-center">
+                            <ChevronRight />
                         </button>
                     </div>
                     <div>
