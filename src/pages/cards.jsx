@@ -4,127 +4,62 @@ import { Link } from "react-router-dom"
 import { Table } from "react-bootstrap"
 import { Trash } from "react-bootstrap-icons"
 
+import { useSelector, useDispatch } from 'react-redux'
+import { deleteCards } from '../slices/cardsSlice'
+
 import Page from "../components/page"
 
 export default function CardsPage() {
-    const [isLoading, setIsLoading] = useState(true)
-    const [cards, setCards] = useState([])
+    const cards = useSelector(state => state.cards.value)
+    const dispatch = useDispatch()
+
+    // Table state
     const [allChecked, setAllChecked] = useState(false)
     const [showToolbar, setShowToolbar] = useState(false)
+    const [checkedCards, setCheckedCards] = useState(Array(cards.length).fill(false))
 
-    const onAllCheckboxChange = () => {
-
-        // Create temp array
-        let tempCards = [...cards]
-
-        // Toggle checkbox
-        tempCards.map(card => card.isChecked = !allChecked)
-
-        // Update select all checkbox state
+    const toggleAllCheckboxes = () => {
+        setCheckedCards(checkedCards.fill(!allChecked))
         setAllChecked(!allChecked)
-
-        // Show/hide toolbar
-        setShowToolbar(!allChecked)
-
-        // Update cards state
-        setCards(tempCards)
     }
 
-    const onSingleCheckboxChange = (e) => {
-
-        // Create temp array
-        let tempCards = [...cards]
-
-        // Get cards index
-        const index = e.target.dataset.index
-
-        // Toggle checkbox
-        tempCards[index].isChecked = !tempCards[index].isChecked
-
-        // Check if any checkboxes are checked
-        let noneChecked = tempCards.every((card) => {
-            return !card.isChecked
-        })
-
-        // Show/hide toolbar
-        if (noneChecked) {
-            setShowToolbar(false)
-        } else {
-            setShowToolbar(true)
-        }
-
-        // Since a single box has changed we should not indicate all are checked
+    const toggleCheckbox = (index) => {
+        let tempCards = [...checkedCards]
+        tempCards[index] = !tempCards[index]
+        setCheckedCards(tempCards)
         setAllChecked(false)
-        
-        // Update cards state
-        setCards(tempCards)
     }
 
-    const deleteCards = () => {
-
-        // Create temp array
-        let tempCards = [...cards]
-
-        // Filter out all checked cards
-        tempCards = tempCards.filter(card => !card.isChecked)
-
-        // Delete from local storage
-        localStorage.setItem('cards', JSON.stringify(tempCards))
-
-        // Check if any checkboxes are checked
-        let noneChecked = tempCards.every((card) => {
-            return !card.isChecked
-        })
-
-        // Show/hide toolbar
-        if (noneChecked) {
-            setShowToolbar(false)
-        } else {
-            setShowToolbar(true)
-        }
-
-        if (tempCards.length === 0) {
-            setAllChecked(false)
-        }
-
-        // Update cards state
-        setCards(tempCards)
+    const deleteCheckedCards = () => {
+        dispatch(deleteCards(checkedCards))
+        setCheckedCards(checkedCards.fill(false))
+        setAllChecked(false)
     }
 
     useEffect(() => {
-        if (isLoading) {
-
-            // Get cards and set state if it exists
-            let tempCards = localStorage.getItem('cards')
-            if (tempCards) {
-
-                // Convert JSON string to actual JSON
-                tempCards = JSON.parse(tempCards)
-
-                // Uncheck all checkboxes
-                tempCards.map(card => card.isChecked = false)
-
-                // Update cards state
-                setCards(tempCards)
-            }
-
-            // Stop loading and render page
-            setIsLoading(false)
+        if (checkedCards.every(card => !card)) {
+            setShowToolbar(false)
+        } else {
+            setShowToolbar(true)
         }
     })
 
     return (
-        <Page title="My Cards" isLoading={isLoading} noPadding>
+        <Page title="My Cards" noPadding>
+
+            {/* Cards Toolbar */}
             <div className="Table__Toolbar p-1 bg-warning" style={{ display: showToolbar ? 'block' : 'none' }}>
-                <button className="text-danger bg-transparent border-0 d-flex align-items-center" onClick={deleteCards}>
+                <button className="text-danger bg-transparent border-0 d-flex align-items-center" onClick={deleteCheckedCards}>
                     <Trash className="me-1" /> Delete
                 </button>
             </div>
+
+            {/* Cards Table */}
             <Table variant="dark" striped hover borderless>
                 <thead>
                     <tr>
                         <th style={{ width: '30px' }}>
-                            <input className="form-check-input" type="checkbox" checked={allChecked} onChange={onAllCheckboxChange} />
+                            <input className="form-check-input" type="checkbox" checked={allChecked} onChange={toggleAllCheckboxes} />
                         </th>
                         <th>Card</th>
                         <th>Mana Cost</th>
@@ -135,13 +70,13 @@ export default function CardsPage() {
                     {cards.map((card, index) =>
                         <tr key={index}>
                             <th style={{ width: '30px' }}>
-                                <input className="form-check-input" type="checkbox" data-index={index} checked={card.isChecked} onChange={onSingleCheckboxChange} />
+                                <input className="form-check-input" type="checkbox" checked={checkedCards[index]} onChange={() => toggleCheckbox(index)} />
                             </th>
                             <th>
                                 <Link to={`/cards/${card.name}`} className="link-secondary text-decoration-none fw-normal">{card.name}</Link>
                             </th>
-                            <td>{card.mana_cost}</td>
-                            <td>${card.prices.usd}</td>
+                            <td>{card.mana}</td>
+                            <td>${card.price}</td>
                         </tr>
                     )}
                 </tbody>

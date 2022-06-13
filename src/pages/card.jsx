@@ -4,10 +4,14 @@ import { useParams } from "react-router-dom"
 import { Button, ButtonGroup } from "react-bootstrap"
 import axios from "axios"
 
+import { useDispatch } from 'react-redux'
+import { addCard } from '../slices/cardsSlice'
+
 import Page from "../components/page"
 
 export default function CardPage() {
     let { name } = useParams()
+    const dispatch = useDispatch()
 
     const [isLoading, setIsLoading] = useState(true)
     const [cardName, setCardName] = useState('')
@@ -18,22 +22,8 @@ export default function CardPage() {
         purchase_uris: {}
     })
 
-    const onClick = () => {
-        let cards;
-
-        if (localStorage.getItem('cards')) {
-            cards = JSON.parse(localStorage.getItem('cards'))
-        } else {
-            cards = []
-        }
-        
-        cards.push(cardDetails)
-
-        localStorage.setItem('cards', JSON.stringify(cards))
-    }
-
     useEffect(() => {
-
+        
         // Check to see if the card name has changed
         if (name != cardName) {
             setIsLoading(true)
@@ -94,7 +84,7 @@ export default function CardPage() {
                                 </div>
                             </div>
                             <ButtonGroup>
-                                <Button onClick={onClick}>Add to Collection</Button>
+                                <Button onClick={() => dispatch(addCard({ name: cardDetails.name, mana: cardDetails.mana_cost, price: cardDetails.prices.usd, id: cardDetails.id }))}>Add to Collection</Button>
                                 <Button href={cardDetails.purchase_uris.tcgplayer} target="_blank" variant="secondary">Buy on TCGplayer</Button>
                             </ButtonGroup>
                         </div>
