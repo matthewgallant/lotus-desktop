@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import { Button, ButtonGroup } from "react-bootstrap"
 import axios from "axios"
 
-import Page from "../components/page.jsx"
+import Page from "../components/page"
 
 export default function CardPage() {
     let { name } = useParams()

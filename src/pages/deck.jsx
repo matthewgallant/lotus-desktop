@@ -1,7 +1,7 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 
-import Page from "../components/page.jsx"
+import Page from "../components/page"
 
 export default function DeckPage() {
     let { name } = useParams()

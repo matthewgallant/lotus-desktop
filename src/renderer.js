@@ -2,15 +2,15 @@ import * as React from 'react'
 import ReactDOM from "react-dom/client"
 import { HashRouter, Routes, Route } from "react-router-dom"
 
-import DashboardPage from './pages/dashboard.jsx'
-import CardsPage from './pages/cards.jsx'
-import DecksPage from './pages/decks.jsx'
-import DeckPage from './pages/deck.jsx'
-import SearchPage from './pages/search.jsx'
-import ImportPage from './pages/import.jsx'
-import SettingsPage from './pages/settings.jsx'
-import CardPage from './pages/card.jsx'
 
+import DashboardPage from './pages/dashboard'
+import CardsPage from './pages/cards'
+import DecksPage from './pages/decks'
+import DeckPage from './pages/deck'
+import SearchPage from './pages/search'
+import ImportPage from './pages/import'
+import SettingsPage from './pages/settings'
+import CardPage from './pages/card'
 import './css/custom.scss'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

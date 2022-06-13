@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { Modal, Button, Form, Table } from "react-bootstrap"
 import { Trash } from "react-bootstrap-icons"
 
-import Page from "../components/page.jsx"
+import Page from "../components/page"
 
 export default function DecksPage() {
     const navigate = useNavigate()

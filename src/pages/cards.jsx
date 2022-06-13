@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { Table } from "react-bootstrap"
 import { Trash } from "react-bootstrap-icons"
 
-import Page from "../components/page.jsx"
+import Page from "../components/page"
 
 export default function CardsPage() {
     const [isLoading, setIsLoading] = useState(true)

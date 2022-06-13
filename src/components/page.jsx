@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom"
 import { Spinner } from "react-bootstrap"
 import { ChevronLeft, ChevronRight } from "react-bootstrap-icons"
 
-import Sidebar from "./sidebar.jsx"
-import SearchField from "./searchField.jsx";
+import Sidebar from "./sidebar"
+import SearchField from "./searchField";
 
 export default function Page(props) {
     const navigate = useNavigate()
