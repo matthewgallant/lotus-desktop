@@ -1,17 +1,19 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { Button, ButtonGroup } from "react-bootstrap"
+import { Button, ButtonGroup, Dropdown, DropdownButton } from "react-bootstrap"
 import axios from "axios"
 
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { addCard } from '../slices/cardsSlice'
+import { addDeckCard } from '../slices/decksSlice'
 
 import Page from "../components/page"
 
 export default function CardPage() {
     let { name } = useParams()
     const dispatch = useDispatch()
+    const decks = useSelector(state => state.decks.value)
 
     const [isLoading, setIsLoading] = useState(true)
     const [cardName, setCardName] = useState('')
@@ -86,6 +88,11 @@ export default function CardPage() {
                             <ButtonGroup>
                                 <Button onClick={() => dispatch(addCard({ name: cardDetails.name, mana: cardDetails.mana_cost, price: cardDetails.prices.usd, id: cardDetails.id }))}>Add to Collection</Button>
                                 <Button href={cardDetails.purchase_uris.tcgplayer} target="_blank" variant="secondary">Buy on TCGplayer</Button>
+                                <DropdownButton as={ButtonGroup} title="Add to Deck">
+                                    {decks.map((deck, index) =>
+                                        <Dropdown.Item key={index} onClick={() => dispatch(addDeckCard({ deck: index, card: { name: cardDetails.name, mana: cardDetails.mana_cost, price: cardDetails.prices.usd, id: cardDetails.id } }))}>{deck.name}</Dropdown.Item>    
+                                    )}
+                                </DropdownButton>
                             </ButtonGroup>
                         </div>
                     </div>
