@@ -96,7 +96,7 @@ export default function SearchField() {
                             <div key={index}>
                                 <Link to={`/cards/${suggestion}`} className={"Search__Suggestion " + (index == activeSuggestion && "Search__Active")}>
                                     {suggestion}
-                                    {cards.filter(card => card.name == suggestion).length > 0 ? <Badge pill bg="primary" className="ms-2">In Collection</Badge> : null}
+                                    {cards.filter(card => card.name == suggestion).length > 0 ? <Badge pill bg="primary" className="ms-2">{cards.find(card => card.name == suggestion).quantity} In Collection</Badge> : null}
                                 </Link>
                             </div>
                         )}

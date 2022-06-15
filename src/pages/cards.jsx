@@ -63,6 +63,7 @@ export default function CardsPage() {
                             <input className="form-check-input" type="checkbox" checked={allChecked} onChange={toggleAllCheckboxes} />
                         </th>
                         <th>Card</th>
+                        <th>Quantity</th>
                         <th>Mana Cost</th>
                         <th>Price</th>
                     </tr>
@@ -81,6 +82,7 @@ export default function CardsPage() {
                                     )}
                                 </Link>
                             </th>
+                            <td>{card.quantity}</td>
                             <td>{card.mana}</td>
                             <td>${card.price}</td>
                         </tr>

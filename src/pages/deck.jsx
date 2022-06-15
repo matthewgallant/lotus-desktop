@@ -78,7 +78,7 @@ export default function DecksPage() {
                             <th>
                                 <Link to={`/cards/${card.name}`} className="link-secondary text-decoration-none fw-normal">
                                     {card.name}
-                                    {cards.filter(collectionCard => collectionCard.name == card.name).length > 0 ? <Badge pill bg="primary" className="ms-2">In Collection</Badge> : null}
+                                    {cards.filter(collectionCard => collectionCard.name == card.name).length > 0 ? <Badge pill bg="primary" className="ms-2">{cards.find(collectionCard => collectionCard.name == card.name).quantity} In Collection</Badge> : null}
                                 </Link>
                             </th>
                             <td>{card.mana}</td>

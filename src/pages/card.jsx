@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { Button, ButtonGroup, Dropdown, DropdownButton, Badge } from "react-bootstrap"
+import { Button, ButtonGroup, ButtonToolbar, InputGroup, Dropdown, DropdownButton, Badge, FormControl } from "react-bootstrap"
 import axios from "axios"
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -17,6 +17,7 @@ export default function CardPage() {
     const decks = useSelector(state => state.decks.value)
 
     const [isLoading, setIsLoading] = useState(true)
+    const [quantity, setQuantity] = useState(1)
     const [cardName, setCardName] = useState('')
     const [cardDetails, setCardDetails] = useState({
         image_uris: {},
@@ -31,6 +32,7 @@ export default function CardPage() {
         if (name != cardName) {
             setIsLoading(true)
             setCardName(name)
+            setQuantity(1)
         }
 
         // Grab card details if in loading mode
@@ -56,7 +58,7 @@ export default function CardPage() {
                         <div className="Card">
                             <div className="h2">{cardDetails.name}</div>
                             <div className="mb-2">
-                                {cards.filter(card => card.name == cardDetails.name).length > 0 ? <Badge pill bg="primary">In Collection</Badge> : null}
+                                {cards.filter(card => card.name == cardDetails.name).length > 0 ? <Badge pill bg="primary">{cards.find(card => card.name == cardDetails.name).quantity} In Collection</Badge> : null}
                             </div>
                             <div className="mb-2">
                                 {decks.filter(deck => deck.cards.filter(card => card.name == cardDetails.name).length > 0).map((deck, index) =>
@@ -94,15 +96,28 @@ export default function CardPage() {
                                     <div>Legacy</div>
                                 </div>
                             </div>
-                            <ButtonGroup>
-                                <Button onClick={() => dispatch(addCard({ name: cardDetails.name, mana: cardDetails.mana_cost, price: cardDetails.prices.usd, id: cardDetails.id }))}>Add to Collection</Button>
-                                <Button href={cardDetails.purchase_uris.tcgplayer} target="_blank" variant="secondary">Buy on TCGplayer</Button>
-                                <DropdownButton as={ButtonGroup} title="Add to Deck">
-                                    {decks.map((deck, index) =>
-                                        <Dropdown.Item key={index} onClick={() => dispatch(addDeckCard({ deck: index, card: { name: cardDetails.name, mana: cardDetails.mana_cost, price: cardDetails.prices.usd, id: cardDetails.id } }))}>{deck.name}</Dropdown.Item>    
-                                    )}
-                                </DropdownButton>
-                            </ButtonGroup>
+                            <div className="d-flex">
+                                <ButtonToolbar>
+                                    <InputGroup>
+                                        <FormControl
+                                            type="number"
+                                            spellCheck="false"
+                                            className="me-1"
+                                            style={{ width: 75 }}
+                                            value={quantity}
+                                            onChange={(e) => setQuantity(e.target.value)} />
+                                    </InputGroup>
+                                    <ButtonGroup>
+                                        <Button onClick={() => dispatch(addCard({ name: cardDetails.name, mana: cardDetails.mana_cost, price: cardDetails.prices.usd, id: cardDetails.id, quantity: quantity }))}>Add to Collection</Button>
+                                        <Button href={cardDetails.purchase_uris.tcgplayer} target="_blank" variant="secondary">Buy on TCGplayer</Button>
+                                        <DropdownButton as={ButtonGroup} title="Add to Deck">
+                                            {decks.map((deck, index) =>
+                                                <Dropdown.Item key={index} onClick={() => dispatch(addDeckCard({ deck: index, card: { name: cardDetails.name, mana: cardDetails.mana_cost, price: cardDetails.prices.usd, id: cardDetails.id } }))}>{deck.name}</Dropdown.Item>    
+                                            )}
+                                        </DropdownButton>
+                                    </ButtonGroup>
+                                </ButtonToolbar>
+                            </div>
                         </div>
                     </div>
                 </div>
