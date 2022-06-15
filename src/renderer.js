@@ -30,7 +30,7 @@ root.render(
                     <Route path="/cards" exact element={<CardsPage />} />
                     <Route path="/cards/:name" exact element={<CardPage />} />
                     <Route path="/decks" exact element={<DecksPage />} />
-                    <Route path="/decks/:name" exact element={<DeckPage />} />
+                    <Route path="/decks/:id" exact element={<DeckPage />} />
                     <Route path="/search" exact element={<SearchPage />} />
                     <Route path="/import" exact element={<ImportPage />} />
                     <Route path="/settings" exact element={<SettingsPage />} />

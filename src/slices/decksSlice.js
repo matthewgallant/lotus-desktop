@@ -20,9 +20,16 @@ export const decksSlice = createSlice({
                     deck.cards.push(action.payload.card)
                 }
             })
+        },
+        deleteDeckCards: (state, action) => {
+            state.value.map((deck, index) => {
+                if (index == action.payload.deck) {
+                    deck.cards = deck.cards.filter((card, index) => action.payload.cards[index] == false)
+                }
+            })
         }
     }
 })
 
-export const { addDeck, deleteDecks, addDeckCard } = decksSlice.actions
+export const { addDeck, deleteDecks, addDeckCard, deleteDeckCards } = decksSlice.actions
 export default decksSlice.reducer

@@ -99,7 +99,7 @@ export default function DecksPage() {
                                 <input className="form-check-input" type="checkbox" checked={checkedDecks[index]} onChange={() => toggleCheckbox(index)} />
                             </th>
                             <th>
-                                <Link to={`/decks/${deck.name}`} className="link-secondary text-decoration-none fw-normal">{deck.name}</Link>
+                                <Link to={`/decks/${index}`} className="link-secondary text-decoration-none fw-normal">{deck.name}</Link>
                             </th>
                             <td>{deck.format}</td>
                             <td>{deck.cards.length}</td>
