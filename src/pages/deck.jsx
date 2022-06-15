@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
-import { Table } from "react-bootstrap"
+import { Table, Badge } from "react-bootstrap"
 import { Trash } from "react-bootstrap-icons"
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -11,8 +11,10 @@ import Page from "../components/page"
 
 export default function DecksPage() {
     let { id } = useParams()
-    const deck = useSelector(state => state.decks.value[id])
     const dispatch = useDispatch()
+    
+    const cards = useSelector(state => state.cards.value)
+    const deck = useSelector(state => state.decks.value[id])
 
     // Table state
     const [allChecked, setAllChecked] = useState(false)
@@ -74,7 +76,10 @@ export default function DecksPage() {
                                 <input className="form-check-input" type="checkbox" checked={checkedCards[index]} onChange={() => toggleCheckbox(index)} />
                             </th>
                             <th>
-                                <Link to={`/cards/${card.name}`} className="link-secondary text-decoration-none fw-normal">{card.name}</Link>
+                                <Link to={`/cards/${card.name}`} className="link-secondary text-decoration-none fw-normal">
+                                    {card.name}
+                                    {cards.filter(collectionCard => collectionCard.name == card.name).length > 0 ? <Badge pill bg="primary" className="ms-2">In Collection</Badge> : null}
+                                </Link>
                             </th>
                             <td>{card.mana}</td>
                             <td>${card.price}</td>

@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { Button, ButtonGroup, Dropdown, DropdownButton } from "react-bootstrap"
+import { Button, ButtonGroup, Dropdown, DropdownButton, Badge } from "react-bootstrap"
 import axios from "axios"
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -13,6 +13,7 @@ import Page from "../components/page"
 export default function CardPage() {
     let { name } = useParams()
     const dispatch = useDispatch()
+    const cards = useSelector(state => state.cards.value)
     const decks = useSelector(state => state.decks.value)
 
     const [isLoading, setIsLoading] = useState(true)
@@ -54,6 +55,9 @@ export default function CardPage() {
                     <div className="col-8">
                         <div className="Card">
                             <div className="h2">{cardDetails.name}</div>
+                            <div className="mb-2">
+                                {cards.filter(card => card.name == cardDetails.name).length > 0 ? <Badge pill bg="primary">In Collection</Badge> : null}
+                            </div>
                             <div className="mb-2">{cardDetails.mana_cost}</div>
                             <div className="mb-2">{cardDetails.type_line}</div>
                             <div className="mb-2">{cardDetails.oracle_text}</div>

@@ -1,12 +1,13 @@
 import React from "react"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Form } from "react-bootstrap"
+import { Form, Badge } from "react-bootstrap"
 import axios from "axios"
+import { useSelector } from 'react-redux'
 
 export default function SearchField() {
     let navigate = useNavigate()
-
+    const cards = useSelector(state => state.cards.value)
 
     const [scryfallSuggestions, setScryfallSuggestions] = useState([])
     const [activeSuggestion, setActiveSuggestion] = useState(-1)
@@ -84,7 +85,7 @@ export default function SearchField() {
                         type="text"
                         placeholder="Search for any card"
                         spellCheck="false"
-                        style={{ width: 300 }}
+                        style={{ width: 400 }}
                         onChange={onChange}
                         onKeyDown={onKeyDown}
                         className={scryfallSuggestions.length > 0 && 'rounded-0 rounded-top'} />
@@ -95,6 +96,7 @@ export default function SearchField() {
                             <div key={index}>
                                 <Link to={`/cards/${suggestion}`} className={"Search__Suggestion " + (index == activeSuggestion && "Search__Active")}>
                                     {suggestion}
+                                    {cards.filter(card => card.name == suggestion).length > 0 ? <Badge pill bg="primary" className="ms-2">In Collection</Badge> : null}
                                 </Link>
                             </div>
                         )}

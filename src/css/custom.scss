@@ -123,7 +123,8 @@ body {
 }
 
 .Search__Suggestion {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     padding: 8px;
     text-decoration: none;
     color: $dark;
