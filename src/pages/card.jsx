@@ -58,6 +58,11 @@ export default function CardPage() {
                             <div className="mb-2">
                                 {cards.filter(card => card.name == cardDetails.name).length > 0 ? <Badge pill bg="primary">In Collection</Badge> : null}
                             </div>
+                            <div className="mb-2">
+                                {decks.filter(deck => deck.cards.filter(card => card.name == cardDetails.name).length > 0).map((deck, index) =>
+                                    <Badge key={index} pill bg="secondary" className="me-1">In {deck.name} Deck</Badge>
+                                )}
+                            </div>
                             <div className="mb-2">{cardDetails.mana_cost}</div>
                             <div className="mb-2">{cardDetails.type_line}</div>
                             <div className="mb-2">{cardDetails.oracle_text}</div>
