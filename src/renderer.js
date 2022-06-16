@@ -1,6 +1,7 @@
 import * as React from 'react'
 import ReactDOM from "react-dom/client"
 import { HashRouter, Routes, Route } from "react-router-dom"
+import { Toaster } from "react-hot-toast"
 
 // Redux Toolkit
 import { Provider } from 'react-redux'
@@ -24,6 +25,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+            <Toaster/>
             <HashRouter>
                 <Routes>
                     <Route path="/" exact element={<DashboardPage />} />

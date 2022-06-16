@@ -19,7 +19,6 @@ For any other `npm` commands refer to the [Electron Forge CLI Guide](https://www
     - Build dashboard page
     - Build search page
     - Build search results page
-    - Build import page
     - Build settings page
 - Add Scryfall syntax support to search field
 - Add ability to export checked cards
