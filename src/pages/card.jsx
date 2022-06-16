@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { Button, ButtonGroup, ButtonToolbar, InputGroup, Dropdown, DropdownButton, Badge, FormControl } from "react-bootstrap"
 import axios from "axios"
+import toast from "react-hot-toast"
 
 import { useSelector, useDispatch } from 'react-redux'
 import { addCard } from '../slices/cardsSlice'
@@ -25,6 +26,36 @@ export default function CardPage() {
         prices: {},
         purchase_uris: {}
     })
+
+    const addToCollection = () => {
+        dispatch(
+            addCard({
+                name: cardDetails.name,
+                mana: cardDetails.mana_cost,
+                price: cardDetails.prices.usd,
+                id: cardDetails.id,
+                quantity: quantity
+            })
+        )
+
+        toast.success("Added to Collection!")
+    }
+
+    const addToDeck = (index) => {
+        dispatch(
+            addDeckCard({
+                deck: index,
+                card: {
+                    name: cardDetails.name,
+                    mana: cardDetails.mana_cost,
+                    price: cardDetails.prices.usd,
+                    id: cardDetails.id
+                }
+            })
+        )
+        
+        toast.success("Added to Deck!")
+    }
 
     useEffect(() => {
         
@@ -108,11 +139,11 @@ export default function CardPage() {
                                             onChange={(e) => setQuantity(e.target.value)} />
                                     </InputGroup>
                                     <ButtonGroup>
-                                        <Button onClick={() => dispatch(addCard({ name: cardDetails.name, mana: cardDetails.mana_cost, price: cardDetails.prices.usd, id: cardDetails.id, quantity: quantity }))}>Add to Collection</Button>
+                                        <Button onClick={addToCollection}>Add to Collection</Button>
                                         <Button href={cardDetails.purchase_uris.tcgplayer} target="_blank" variant="secondary">Buy on TCGplayer</Button>
                                         <DropdownButton as={ButtonGroup} title="Add to Deck">
                                             {decks.map((deck, index) =>
-                                                <Dropdown.Item key={index} onClick={() => dispatch(addDeckCard({ deck: index, card: { name: cardDetails.name, mana: cardDetails.mana_cost, price: cardDetails.prices.usd, id: cardDetails.id } }))}>{deck.name}</Dropdown.Item>    
+                                                <Dropdown.Item key={index} onClick={() => addToDeck(index)}>{deck.name}</Dropdown.Item>    
                                             )}
                                         </DropdownButton>
                                     </ButtonGroup>
