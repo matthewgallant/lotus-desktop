@@ -33,14 +33,18 @@ export default function DecksPage() {
 
     const saveDeck = (e) => {
         e.preventDefault()
+        
         if (deckName.length > 0) {
+            const newDeckIndex = decks.length
+
             dispatch(addDeck({
                 name: deckName,
                 format: deckFormat,
                 cards: []
             }))
+
             setShowAddModal(false)
-            navigate(`/decks/${deckName}`)
+            navigate(`/decks/${newDeckIndex}`)
         }
     }
 
