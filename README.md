@@ -15,13 +15,10 @@ npm start
 For any other `npm` commands refer to the [Electron Forge CLI Guide](https://www.electronforge.io/cli).
 
 ## To Do
-- Pages
-    - Build search results page
+- Add search results page
 - Add Scryfall syntax support to search field
 - Add ability to export checked cards
 - Add ability to update checked cards' data from Scryfall
 - Add ability to change a single checked cards quantity
 - Add ability to add checked cards to a deck
 - Add links to all "In Collection" and "In Deck" tags
-- Bugs
-    - Hide search suggestions after clicking on a suggestion

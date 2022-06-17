@@ -141,11 +141,13 @@ export default function CardPage() {
                                     <ButtonGroup>
                                         <Button onClick={addToCollection}>Add to Collection</Button>
                                         <Button href={cardDetails.purchase_uris.tcgplayer} target="_blank" variant="secondary">Buy on TCGplayer</Button>
-                                        <DropdownButton as={ButtonGroup} title="Add to Deck">
-                                            {decks.map((deck, index) =>
-                                                <Dropdown.Item key={index} onClick={() => addToDeck(index)}>{deck.name}</Dropdown.Item>    
-                                            )}
-                                        </DropdownButton>
+                                        {decks.length > 0 ?
+                                            <DropdownButton as={ButtonGroup} title="Add to Deck">
+                                                {decks.map((deck, index) =>
+                                                    <Dropdown.Item key={index} onClick={() => addToDeck(index)}>{deck.name}</Dropdown.Item>    
+                                                )}
+                                            </DropdownButton> : null
+                                        }
                                     </ButtonGroup>
                                 </ButtonToolbar>
                             </div>

@@ -94,9 +94,16 @@ export default function SearchField() {
                     <div className="Search__Suggestions">
                         {scryfallSuggestions.map((suggestion, index) => 
                             <div key={index}>
-                                <Link to={`/cards/${suggestion}`} className={"Search__Suggestion " + (index == activeSuggestion && "Search__Active")}>
+                                <Link
+                                    to={`/cards/${suggestion}`}
+                                    className={"Search__Suggestion " + (index == activeSuggestion && "Search__Active")}
+                                    onClick={() => setScryfallSuggestions([])}>
                                     {suggestion}
-                                    {cards.filter(card => card.name == suggestion).length > 0 ? <Badge pill bg="primary" className="ms-2">{cards.find(card => card.name == suggestion).quantity} In Collection</Badge> : null}
+                                    {cards.filter(card => card.name == suggestion).length > 0 ?
+                                        <Badge pill bg="primary" className="ms-2">
+                                            {cards.find(card => card.name == suggestion).quantity} In Collection
+                                        </Badge> : null
+                                    }
                                 </Link>
                             </div>
                         )}
