@@ -2,12 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { Table, Badge } from "react-bootstrap"
-import { Trash } from "react-bootstrap-icons"
+import { Trash, Download } from "react-bootstrap-icons"
 
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteCards } from '../slices/cardsSlice'
 
 import Page from "../components/page"
+import toast from "react-hot-toast";
 
 export default function CardsPage() {
     const cards = useSelector(state => state.cards.value)
@@ -37,6 +38,17 @@ export default function CardsPage() {
         setAllChecked(false)
     }
 
+    const exportCheckedCards = () => {
+
+        // Parse cards
+        let cardsToExport = cards.filter((card, index) => checkedCards[index])
+        cardsToExport = cardsToExport.map(card => `${card.quantity} ${card.name}`)
+        cardsToExport = cardsToExport.join('\n')
+        
+        navigator.clipboard.writeText(cardsToExport)
+        toast.success('Copied Exported Cards to Clipboard')
+    }
+
     useEffect(() => {
         if (checkedCards.every(card => !card)) {
             setShowToolbar(false)
@@ -49,7 +61,10 @@ export default function CardsPage() {
         <Page title="My Cards" noPadding>
 
             {/* Cards Toolbar */}
-            <div className="Table__Toolbar p-1 bg-warning" style={{ display: showToolbar ? 'block' : 'none' }}>
+            <div className="Table__Toolbar p-1 bg-warning" style={{ display: showToolbar ? 'flex' : 'none' }}>
+                <button className="text-primary bg-transparent border-0 d-flex align-items-center" onClick={exportCheckedCards}>
+                    <Download className="me-1" /> Export
+                </button>
                 <button className="text-danger bg-transparent border-0 d-flex align-items-center" onClick={deleteCheckedCards}>
                     <Trash className="me-1" /> Delete
                 </button>
