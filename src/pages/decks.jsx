@@ -1,6 +1,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Modal, Button, Form, Table } from "react-bootstrap"
 import { Trash } from "react-bootstrap-icons"
 
@@ -10,7 +10,6 @@ import { addDeck, deleteDecks } from '../slices/decksSlice'
 import Page from "../components/page"
 
 export default function DecksPage() {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const decks = useSelector(state => state.decks.value)
 
@@ -44,7 +43,6 @@ export default function DecksPage() {
             }))
 
             setShowAddModal(false)
-            navigate(`/decks/${newDeckIndex}`)
         }
     }
 
@@ -85,32 +83,39 @@ export default function DecksPage() {
             </div>
 
             {/* Decks Table */}
-            <Table variant="dark" striped hover borderless>
-                <thead>
-                    <tr>
-                        <th style={{ width: '30px' }}>
-                            <input className="form-check-input" type="checkbox" checked={allChecked} onChange={toggleAllCheckboxes} />
-                        </th>
-                        <th>Deck</th>
-                        <th>Format</th>
-                        <th>Number of Cards</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {decks.map((deck, index) =>
-                        <tr key={index}>
+            {decks.length > 0 ?
+                <Table variant="dark" striped hover borderless>
+                    <thead>
+                        <tr>
                             <th style={{ width: '30px' }}>
-                                <input className="form-check-input" type="checkbox" checked={checkedDecks[index]} onChange={() => toggleCheckbox(index)} />
+                                <input className="form-check-input" type="checkbox" checked={allChecked} onChange={toggleAllCheckboxes} />
                             </th>
-                            <th>
-                                <Link to={`/decks/${index}`} className="link-secondary text-decoration-none fw-normal">{deck.name}</Link>
-                            </th>
-                            <td>{deck.format}</td>
-                            <td>{deck.cards.length}</td>
+                            <th>Deck</th>
+                            <th>Format</th>
+                            <th>Number of Cards</th>
                         </tr>
-                    )}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {decks.map((deck, index) =>
+                            <tr key={index}>
+                                <th style={{ width: '30px' }}>
+                                    <input className="form-check-input" type="checkbox" checked={checkedDecks[index]} onChange={() => toggleCheckbox(index)} />
+                                </th>
+                                <th>
+                                    <Link to={`/decks/${index}`} className="link-secondary text-decoration-none fw-normal">{deck.name}</Link>
+                                </th>
+                                <td>{deck.format}</td>
+                                <td>{deck.cards.length}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </Table> :
+                <div className="d-flex justify-content-center align-items-center h-100">
+                    <span>
+                        <b>You don't have any decks!</b> Add a deck by clicking the <i>Add Deck</i> button above.
+                    </span>
+                </div>
+            }
 
             {/* Add Deck Modal */}
             <Modal show={showAddModal} onHide={() => setShowAddModal(false)} centered>
