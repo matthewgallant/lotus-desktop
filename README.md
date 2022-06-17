@@ -19,5 +19,4 @@ For any other `npm` commands refer to the [Electron Forge CLI Guide](https://www
 - Add Scryfall syntax support to search field
 - Add ability to update checked cards' data from Scryfall
 - Add ability to change a single checked cards quantity
-- Add ability to add checked cards to a deck
 - Add links to all "In Collection" and "In Deck" tags

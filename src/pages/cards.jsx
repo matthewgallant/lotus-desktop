@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { Table, Badge } from "react-bootstrap"
-import { Trash, Download } from "react-bootstrap-icons"
+import { Table, Badge, Modal, Button, Form } from "react-bootstrap"
+import { Trash, Download, PlusLg } from "react-bootstrap-icons"
 
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteCards } from '../slices/cardsSlice'
+import { addDeckCard } from '../slices/decksSlice'
 
 import Page from "../components/page"
 import toast from "react-hot-toast";
@@ -19,6 +20,10 @@ export default function CardsPage() {
     const [allChecked, setAllChecked] = useState(false)
     const [showToolbar, setShowToolbar] = useState(false)
     const [checkedCards, setCheckedCards] = useState(Array(cards.length).fill(false))
+
+    // Modal state
+    const [showDeckModal, setShowDeckModal] = useState(false)
+    const [deckIndex, setDeckIndex] = useState(0)
 
     const toggleAllCheckboxes = () => {
         setCheckedCards(checkedCards.fill(!allChecked))
@@ -49,6 +54,23 @@ export default function CardsPage() {
         toast.success('Copied Exported Cards to Clipboard')
     }
 
+    const addCheckedCardsToDeck = () => {
+        const cardsToExport = cards.filter((card, index) => checkedCards[index])
+        cardsToExport.forEach(card => {
+            dispatch(
+                addDeckCard({
+                    deck: deckIndex,
+                    card: card
+                })
+            )
+        })
+        setShowDeckModal(false)
+        setCheckedCards(checkedCards.fill(false))
+        setAllChecked(false)
+        setDeckIndex(0)
+        toast.success('Added Card(s) to Deck!')
+    }
+
     useEffect(() => {
         if (checkedCards.every(card => !card)) {
             setShowToolbar(false)
@@ -64,6 +86,9 @@ export default function CardsPage() {
             <div className="Table__Toolbar p-1 bg-warning" style={{ display: showToolbar ? 'flex' : 'none' }}>
                 <button className="text-primary bg-transparent border-0 d-flex align-items-center" onClick={exportCheckedCards}>
                     <Download className="me-1" /> Export
+                </button>
+                <button className="text-primary bg-transparent border-0 d-flex align-items-center" onClick={() => setShowDeckModal(true)}>
+                    <PlusLg className="me-1" /> Add to Deck
                 </button>
                 <button className="text-danger bg-transparent border-0 d-flex align-items-center" onClick={deleteCheckedCards}>
                     <Trash className="me-1" /> Delete
@@ -94,7 +119,7 @@ export default function CardsPage() {
                                     <Link to={`/cards/${card.name}`} className="link-secondary text-decoration-none fw-normal d-flex align-items-center">
                                         {card.name}
                                         {decks.filter(deck => deck.cards.filter(deckCard => deckCard.name == card.name).length > 0).map((deck, index) =>
-                                            <Badge key={index} pill bg="secondary" className="ms-2">In {deck.name} Deck</Badge>
+                                            <Badge key={index} pill bg={index % 2 == 1 ? "primary" : "secondary"} className="ms-2">In {deck.name} Deck</Badge>
                                         )}
                                     </Link>
                                 </th>
@@ -111,6 +136,33 @@ export default function CardsPage() {
                     </span>
                 </div>
             }
+
+            {/* Add to Deck Modal */}
+            <Modal show={showDeckModal} onHide={() => setShowDeckModal(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add Card(s) to Deck</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={addCheckedCardsToDeck}>
+                        <Form.Group>
+                            <Form.Label>Deck</Form.Label>
+                            <Form.Select onChange={(e) => setDeckIndex(e.target.value)}>
+                                {decks.map((deck, index) =>
+                                    <option key={index} value={index}>{deck.name}</option>
+                                )}
+                            </Form.Select>
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowDeckModal(false)}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={addCheckedCardsToDeck}>
+                        Add to Deck
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Page>
     );
 }
