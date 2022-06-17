@@ -73,35 +73,42 @@ export default function DecksPage() {
             </div>
 
             {/* Cards Table */}
-            <Table variant="dark" striped hover borderless>
-                <thead>
-                    <tr>
-                        <th style={{ width: '30px' }}>
-                            <input className="form-check-input" type="checkbox" checked={allChecked} onChange={toggleAllCheckboxes} />
-                        </th>
-                        <th>Card</th>
-                        <th>Mana Cost</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {deck.cards.map((card, index) =>
-                        <tr key={index}>
+            {deck.cards.length > 0 ?
+                <Table variant="dark" striped hover borderless>
+                    <thead>
+                        <tr>
                             <th style={{ width: '30px' }}>
-                                <input className="form-check-input" type="checkbox" checked={checkedCards[index]} onChange={() => toggleCheckbox(index)} />
+                                <input className="form-check-input" type="checkbox" checked={allChecked} onChange={toggleAllCheckboxes} />
                             </th>
-                            <th>
-                                <Link to={`/cards/${card.name}`} className="link-secondary text-decoration-none fw-normal">
-                                    {card.name}
-                                    {cards.filter(collectionCard => collectionCard.name == card.name).length > 0 ? <Badge pill bg="primary" className="ms-2">{cards.find(collectionCard => collectionCard.name == card.name).quantity} In Collection</Badge> : null}
-                                </Link>
-                            </th>
-                            <td>{card.mana}</td>
-                            <td>${card.price}</td>
+                            <th>Card</th>
+                            <th>Mana Cost</th>
+                            <th>Price</th>
                         </tr>
-                    )}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {deck.cards.map((card, index) =>
+                            <tr key={index}>
+                                <th style={{ width: '30px' }}>
+                                    <input className="form-check-input" type="checkbox" checked={checkedCards[index]} onChange={() => toggleCheckbox(index)} />
+                                </th>
+                                <th>
+                                    <Link to={`/cards/${card.name}`} className="link-secondary text-decoration-none fw-normal">
+                                        {card.name}
+                                        {cards.filter(collectionCard => collectionCard.name == card.name).length > 0 ? <Badge pill bg="primary" className="ms-2">{cards.find(collectionCard => collectionCard.name == card.name).quantity} In Collection</Badge> : null}
+                                    </Link>
+                                </th>
+                                <td>{card.mana}</td>
+                                <td>${card.price}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </Table> :
+                <div className="d-flex justify-content-center align-items-center h-100">
+                    <span>
+                        <b>You don't have any cards in this deck!</b> Add some cards by searching in the top-right corner.
+                    </span>
+                </div>
+            }
         </Page>
     );
 }
