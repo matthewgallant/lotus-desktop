@@ -1,6 +1,6 @@
 import * as React from 'react'
 import ReactDOM from "react-dom/client"
-import { HashRouter, Routes, Route } from "react-router-dom"
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom"
 import { Toaster } from "react-hot-toast"
 
 // Redux Toolkit
@@ -9,13 +9,10 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './store.js'
 
 // Pages
-import DashboardPage from './pages/dashboard'
 import CardsPage from './pages/cards'
 import DecksPage from './pages/decks'
 import DeckPage from './pages/deck'
-import SearchPage from './pages/search'
 import ImportPage from './pages/import'
-import SettingsPage from './pages/settings'
 import CardPage from './pages/card'
 
 // Other
@@ -28,14 +25,12 @@ root.render(
             <Toaster/>
             <HashRouter>
                 <Routes>
-                    <Route path="/" exact element={<DashboardPage />} />
+                    <Route path="/" exact element={<Navigate to="/cards" replace />} />
                     <Route path="/cards" exact element={<CardsPage />} />
                     <Route path="/cards/:name" exact element={<CardPage />} />
                     <Route path="/decks" exact element={<DecksPage />} />
                     <Route path="/decks/:id" exact element={<DeckPage />} />
-                    <Route path="/search" exact element={<SearchPage />} />
                     <Route path="/import" exact element={<ImportPage />} />
-                    <Route path="/settings" exact element={<SettingsPage />} />
                 </Routes>
             </HashRouter>
         </PersistGate>
