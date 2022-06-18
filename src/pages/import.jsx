@@ -56,6 +56,8 @@ export default function ImportPage() {
                             placeholder="Enter cards separated by new lines..."
                             rows={15}
                             value={cardList}
+                            autoCorrect="false"
+                            autoComplete="false"
                             onChange={(e) => setCardList(e.target.value)} />
                     </Form.Group>
                     <Button type="submit" className="mt-2">
