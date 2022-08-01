@@ -1,6 +1,8 @@
 # Lotus
 A Magic: The Gathering card collection and deck manager powered by Electron and React.
 
+![Lotus screenshot](screenshot.png)
+
 ## Development
 Install the needed NPM packages using the command below.
 ```bash
